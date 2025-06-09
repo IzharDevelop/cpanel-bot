@@ -749,2667 +749,1123 @@ function generateRandomString(length) {
 				naze.appendResponseMessage(m, args[0])
 			}
 			break
-//----------------------------------------- MENU SERVER V1 -----------------------------------------------------------------------------------------------
-			case 'panel': case 'panelv1': case 'listpanel': case 'p1': {
-				if (!m.isGroup) return m.reply(mess.group);
-				if (!isPremium) return m.reply(mess.ress);
-								m.reply(`
-╭──❍「 *LIST PANEL MANU V1* 」❍
-│${setv} ${prefix}1gb nama,nomor
-│${setv} ${prefix}2gb nama,nomor
-│${setv} ${prefix}3gb nama,nomor
-│${setv} ${prefix}4gb nama,nomor
-│${setv} ${prefix}5gb nama,nomor
-│${setv} ${prefix}6gb nama,nomor
-│${setv} ${prefix}7gb nama,nomor
-│${setv} ${prefix}8gb nama,nomor
-│${setv} ${prefix}9gb nama,nomor
-│${setv} ${prefix}10gb nama,nomor
-│${setv} ${prefix}11gb nama,nomor
-│${setv} ${prefix}12gb nama,nomor
-│${setv} ${prefix}14gb nama,nomor
-│${setv} ${prefix}15gb nama,nomor
-│${setv} ${prefix}unli nama,nomor
+//----------------------------------------- LIST MENU SERVER -----------------------------------------------------------------------------------------------
+case 'panel': case 'listpanel': {
+	if (!m.isGroup) return m.reply(mess.group);
+	if (!isPremium) return m.reply(mess.ress);
+					m.reply(`╭──❍「 *LIST PANEL MANU PUBLIC* 」❍
+│${setv} ${prefix}public 1gb,nama,nomor
+│${setv} ${prefix}public 2gb,nama,nomor
+│${setv} ${prefix}public 3gb,nama,nomor
+│${setv} ${prefix}public 4gb,nama,nomor
+│${setv} ${prefix}public 5gb,nama,nomor
+│${setv} ${prefix}public 6gb,nama,nomor
+│${setv} ${prefix}public 7gb,nama,nomor
+│${setv} ${prefix}public 8gb,nama,nomor
+│${setv} ${prefix}public 9gb,nama,nomor
+│${setv} ${prefix}public 10gb,nama,nomor
+│${setv} ${prefix}public 11gb,nama,nomor
+│${setv} ${prefix}public 12gb,nama,nomor
+│${setv} ${prefix}public 14gb,nama,nomor
+│${setv} ${prefix}public 15gb,nama,nomor
+│${setv} ${prefix}public unli,nama,nomor
 │${setv} ${prefix}cadmin nama,nomor
 │${setv} ${prefix}listsrv
 │${setv} ${prefix}listadmin
+│${setv} ${prefix}delpublic userId
 ╰──────❍
 
+
+
+╭──❍「 *LIST PANEL MANU PRIVATE* 」❍
+│${setv} ${prefix}private 1gb,nama,nomor
+│${setv} ${prefix}private 2gb,nama,nomor
+│${setv} ${prefix}private 3gb,nama,nomor
+│${setv} ${prefix}private 4gb,nama,nomor
+│${setv} ${prefix}private 5gb,nama,nomor
+│${setv} ${prefix}private 6gb,nama,nomor
+│${setv} ${prefix}private 7gb,nama,nomor
+│${setv} ${prefix}private 8gb,nama,nomor
+│${setv} ${prefix}private 9gb,nama,nomor
+│${setv} ${prefix}private 10gb,nama,nomor
+│${setv} ${prefix}private 11gb,nama,nomor
+│${setv} ${prefix}private 12gb,nama,nomor
+│${setv} ${prefix}private 14gb,nama,nomor
+│${setv} ${prefix}private 15gb,nama,nomor
+│${setv} ${prefix}private unli,nama,nomor
+│${setv} ${prefix}cadmin nama,nomor
+│${setv} ${prefix}listsrv
+│${setv} ${prefix}listadmin
+│${setv} ${prefix}delprivate userId
+╰──────❍
 𝙲𝚘𝚙𝚢𝚛𝚒𝚐𝚑𝚝:
 𝙱𝚈 : 𝙸𝚣𝚑𝚊𝚛𝙳𝚎𝚟𝚎𝚕𝚘𝚙
 𝚏𝚛𝚘𝚖 : 𝙸𝙽𝚅_𝙼𝚞𝚕𝚝𝚒𝙼𝚎𝚍𝚒𝚊`)
-							}
-							break
-				
-			case "cadmin": {
-				if(!isCreator)  return m.reply(mess.owner);
-				//if (!isCreator) return naze.sendMessage(from, {audio: fs.readFileSync('./media/vn/lusiapa.mp3'),mimetype: 'audio/mpeg',ptt: true},{quoted:m})
-				let s = q.split(',')
-				let email = s[0];
-				let username = s[0]
-				let nomor = s[1]
-				if (s.length < 2) return m.reply(`*Format salah!*
-				Penggunaan:
-				${prefix + command} user,nomer`)
-				if (!username) return m.reply(`Ex : ${prefix+command} Username,@tag/nomor\n\nContoh :\n${prefix+command} example,@user`)
-				if (!nomor) return m.reply(`Ex : ${prefix+command} Username,@tag/nomor\n\nContoh :\n${prefix+command} example,@user`)
-				let password = username + "0247"
-				let nomornya = nomor.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-				let f = await fetch(domain + "/api/application/users", {
-				"method": "POST",
-				"headers": {
-				"Accept": "application/json",
-				"Content-Type": "application/json",
-				"Authorization": "Bearer " + apikey
-				},
-				"body": JSON.stringify({
-				"email": username + "@gmail.com",
-				"username": username,
-				"first_name": username,
-				"last_name": "Memb",
-				"language": "en",
-				 "root_admin" : true,  
-				"password": password.toString()
-				})
-				
-				})
-				
-				let data = await f.json();
-				
-				if (data.errors) return m.reply(JSON.stringify(data.errors[0], null, 2));
-				
-				let user = data.attributes
-				
-				let tks = `
-				TYPE: USER
-				
-				ID: ${user.id}
-				USERNAME: ${user.username}
-				EMAIL: ${user.email}
-				NAME: ${user.first_name} ${user.last_name}
-				CREATED AT: ${user.created_at}
-				`
-					const listMessage = {
-				
-						text: tks,
-				
-					}
-				
-					
-				
-					await naze.sendMessage(m.chat, listMessage)
-				
-					await naze.sendMessage(nomornya, {
-				
-						text: `*DETAIL AKUN ADMIN  PANEL ANDA*
-				
-				
-				╭─❏ *『 USER INFO 』*
-				┣❏ ➤ *👤USERNAME* : ${username}
-				┣❏ ➤ *🔐PASSWORD* : ${password}
-				┣❏ ➤ *🌐LOGIN* : ${domain}
-				┗⬣
-				
-				_*Rules :*_
-				*- Jangan Hapus Akun Admin Lain*
-				*- Jangan Colong SC Buyer panel*
-				*- Jangan membuat Panel Terlalu besar*
-				*- Jangan Share Akun Admin Panel Kalian*
-				*- Jangan Membuat Akun Admin Panel Lain*
-				*- Jangan Open Reseller Panel*
-				*- Jangan Otak Atik Server Panel*
-				*- Jangan Give Away Panel*
-				*Melanggar Salah Satu Rules Di Atas Langsung Di Hapus Admin Panel Nya*
-				_*mohon ikuti rules nya*_
-				`,
-				
-					})        
 				}
 				break
-						case "listadmin": {
-							if (!isCreator) return m.reply(mess.owner);
-							let page = args[0] ? args[0] : '1';
-				  let f = await fetch(domain + "/api/application/users?page=" + page, {
-					"method": "GET",
-					"headers": {
-					  "Accept": "application/json",
-					  "Content-Type": "application/json",
-					  "Authorization": "Bearer " + apikey
-					}
-				  });
-				  let res = await f.json();
-				  let users = res.data;
-				  let messageText = "Berikut list admin:\n\n";
-				
-				  for (let user of users) {
-					let u = user.attributes;
-					if (u.root_admin) {
-					  messageText += `ID: ${u.id} - Status: ${u.attributes?.user?.server_limit === null ? 'Inactive' : 'Active'}\n`;
-					  messageText += `${u.username}\n`;
-					  messageText += `${u.first_name} ${u.last_name}\n\n`;
-					}
-				  }
-				
-				  messageText += `Page: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
-				  messageText += `Total Admin: ${res.meta.pagination.count}`;
-				
-				  await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
-				
-				  if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
-					m.reply(`Gunakan perintah ${prefix}listusr ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
-				  }        
-				}
-				break;
-						
-				case "listsrv": {
-					if (!isPremium) return m.reply(mess.prem); 
-				 //if (!isCreator) return m.reply(mess.owner);
-					let page = args[0] ? args[0] : '1';
-				  let f = await fetch(domain + "/api/application/servers?page=" + page, {
-					"method": "GET",
-					"headers": {
-					  "Accept": "application/json",
-					  "Content-Type": "application/json",
-					  "Authorization": "Bearer " + apikey
-					}
-				  });
-				  let res = await f.json();
-				  let servers = res.data;
-				  let sections = [];
-				  let messageText = "Berikut adalah daftar server:\n\n";
-				  
-				  for (let server of servers) {
-					let s = server.attributes;
+				case 'panelprivate': case 'panelv1': case 'listprivate': case 'p1': {
+					if (!m.isGroup) return m.reply(mess.group);
+					if (!isPremium) return m.reply(mess.ress);
+									m.reply(`╭──❍「 *LIST PANEL MANU PUBLIC* 」❍
+│${setv} ${prefix}public 1gb,nama,nomor
+│${setv} ${prefix}public 2gb,nama,nomor
+│${setv} ${prefix}public 3gb,nama,nomor
+│${setv} ${prefix}public 4gb,nama,nomor
+│${setv} ${prefix}public 5gb,nama,nomor
+│${setv} ${prefix}public 6gb,nama,nomor
+│${setv} ${prefix}public 7gb,nama,nomor
+│${setv} ${prefix}public 8gb,nama,nomor
+│${setv} ${prefix}public 9gb,nama,nomor
+│${setv} ${prefix}public 10gb,nama,nomor
+│${setv} ${prefix}public 11gb,nama,nomor
+│${setv} ${prefix}public 12gb,nama,nomor
+│${setv} ${prefix}public 14gb,nama,nomor
+│${setv} ${prefix}public 15gb,nama,nomor
+│${setv} ${prefix}public unli,nama,nomor
+│${setv} ${prefix}cadmin private nama,nomor
+│${setv} ${prefix}listsrv private
+│${setv} ${prefix}listadmin private
+│${setv} ${prefix}delusr private userId
+│${setv} ${prefix}delsrv private serverId
+╰──────❍				
 					
-					let f3 = await fetch(domain + "/api/client/servers/" + s.uuid.split`-`[0] + "/resources", {
-					  "method": "GET",
-					  "headers": {
-						"Accept": "application/json",
-						"Content-Type": "application/json",
-						"Authorization": "Bearer " + capikey
-					  }
-					});
-					
-					let data = await f3.json();
-					let status = data.attributes ? data.attributes.current_state : s.status;
-					
-					messageText += `ID Server: ${s.id}\n`;
-					messageText += `Nama Server: ${s.name}\n`;
-					messageText += `Status: ${status}\n\n`;
-				  }
-				  
-				  messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
-				  messageText += `Total Server: ${res.meta.pagination.count}`;
-				  
-				  await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
-				  
-				  if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
-					m.reply(`Gunakan perintah ${prefix}listsrv ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
-				  }        
-				}
-				break;
-//--------------------------------------------SAMPE SINI TADI\-----------------------------------
-			case 'delsrvoff': {
-				if (!isCreator) return m.reply(mess.owner);
-				try {
-				 let f = await fetch(domain + "/api/application/servers?per_page=500", {
-				 method: "GET",
-				 headers: {
-				 Accept: "application/json",
-				 "Content-Type": "application/json",
-				 Authorization: "Bearer " + apikey,
-				 }
-				 });
-				
-				 let res = await f.json();
-				 let servers = res.data;
-				 let totalDeleted = 0;
-				
-				 for (let server of servers) {
-				 let s = server.attributes;
-				 let uuid = s.uuid;
-				 let status = null;
-				
-				 try {
-				 let f3 = await fetch(domain2 + "/api/client/servers/" + uuid.split("-")[0] + "/resources", {
-				 method: "GET",
-				 headers: {
-				 Accept: "application/json",
-				 "Content-Type": "application/json",
-				 Authorization: "Bearer " + capikey
-				 }
-				 });
-				
-				 let data = await f3.json();
-				 status = data.attributes ? data.attributes.current_state : s.status;
-				 } catch {
-				 status = s.status || null;
-				 }
-				
-				 if (!status) continue;
-				
-				 if (status.toLowerCase() === "offline") {
-				 await fetch(domain2 + "/api/application/servers/" + s.id, {
-				 method: "DELETE",
-				 headers: {
-				 Accept: "application/json",
-				 "Content-Type": "application/json",
-				 Authorization: "Bearer " + apikey2
-				 }
-				 });
-				
-				 totalDeleted++;
-				 }
-				 }
-				 const githubImageUrl =
-				 "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-		 
-			   await naze.sendMessage(u, {
-				 image: { url: githubImageUrl },
-				 caption: `*✅ AutoDelete Selesai!*\nBerhasil menghapus *${totalDeleted}* server yang statusnya OFFLINE.`,
-				 }, { quoted: m });
+𝙲𝚘𝚙𝚢𝚛𝚒𝚐𝚑𝚝:
+𝙱𝚈 : 𝙸𝚣𝚑𝚊𝚛𝙳𝚎𝚟𝚎𝚕𝚘𝚙
+𝚏𝚛𝚘𝚖 : 𝙸𝙽𝚅_𝙼𝚞𝚕𝚝𝚒𝙼𝚎𝚍𝚒𝚊`)
+								}
+								break
+				case 'listprivate': case 'panelprivate': case 'listp2': case 'v2': {
+					if (!m.isGroup) return m.reply(mess.group);
+					if (!isPremium) return m.reply(mess.ress);
+									m.reply(`╭──❍「 *LIST PANEL MANU PRIVATE* 」❍
+│${setv} ${prefix}private 1gb,nama,nomor
+│${setv} ${prefix}private 2gb,nama,nomor
+│${setv} ${prefix}private 3gb,nama,nomor
+│${setv} ${prefix}private 4gb,nama,nomor
+│${setv} ${prefix}private 5gb,nama,nomor
+│${setv} ${prefix}private 6gb,nama,nomor
+│${setv} ${prefix}private 7gb,nama,nomor
+│${setv} ${prefix}private 8gb,nama,nomor
+│${setv} ${prefix}private 9gb,nama,nomor
+│${setv} ${prefix}private 10gb,nama,nomor
+│${setv} ${prefix}private 11gb,nama,nomor
+│${setv} ${prefix}private 12gb,nama,nomor
+│${setv} ${prefix}private 14gb,nama,nomor
+│${setv} ${prefix}private 15gb,nama,nomor
+│${setv} ${prefix}private unli,nama,nomor
+│${setv} ${prefix}cadmin private nama,nomor
+│${setv} ${prefix}listsrv private
+│${setv} ${prefix}listadmin private
+│${setv} ${prefix}delusr private userId
+│${setv} ${prefix}delsrv private serverId
+╰──────❍
+𝙲𝚘𝚙𝚢𝚛𝚒𝚐𝚑𝚝:
+𝙱𝚈 : 𝙸𝚣𝚑𝚊𝚛𝙳𝚎𝚟𝚎𝚕𝚘𝚙
+𝚏𝚛𝚘𝚖 : 𝙸𝙽𝚅_𝙼𝚞𝚕𝚝𝚒𝙼𝚎𝚍𝚒𝚊`)
+} break
+//------------------------------------------------------------- FITUR PANEL -------------------------------------------------------------------
 
-				 } catch (err) {
-				 console.log(err);
-				 m.reply("❌ Gagal autodelete. Cek API Key & Domain Panel.");
-				 }
-				}
-				break
-				case 'delsrv': { // Mengubah nama case menjadi 'delsrvid' atau semacamnya
-					if (!isCreator) return m.reply(mess.owner);
-				
-					// Ambil ID server dari pesan pengguna (misalnya, dari argumen kedua)
-					let serverIdToDelete = args[0]; // Asumsi args[0] adalah ID server yang ingin dihapus
-				
-					if (!serverIdToDelete) {
-						return m.reply("❌ Masukkan ID server yang ingin dihapus. Contoh: delsrvid 12345");
-					}
-				
-					try {
-						// Langsung hapus server berdasarkan ID yang diberikan
-						await fetch(domain + "/api/application/servers/" + serverIdToDelete, {
-							method: "DELETE",
-							headers: {
-								Accept: "application/json",
-								"Content-Type": "application/json",
-								Authorization: "Bearer " + apikey
-							}
-						});
-				
-						const githubImageUrl = "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-						
-						await naze.sendMessage({
-							image: { url: githubImageUrl },
-							caption: `*✅ Penghapusan Server Selesai!*\nServer dengan ID: *${serverIdToDelete}* berhasil dihapus.`,
-						}, { quoted: m });
-				
-					} catch (err) {
-						console.error(err); // Gunakan console.error untuk log error
-						// Cek apakah error karena server tidak ditemukan (HTTP 404 Not Found)
-						if (err.response && err.response.status === 404) {
-							m.reply(`❌ Server dengan ID *${serverIdToDelete}* tidak ditemukan atau sudah tidak ada.`);
-						} else {
-							m.reply("❌ Gagal menghapus server. Cek API Key & Domain Panel Anda atau pastikan ID server benar.");
-						}
-					}
-				}
-				break
-                // ... (bagian lain dari kode Anda)
-  case "1gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+case "listuser": case "listusr": {
+    let subCommand = args[0] ? args[0].toLowerCase() : '';
+    let page = args[1] ? args[1] : '1';
 
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
+    // Jika user mengetik listuser private
+    if (subCommand === 'private') {
+        // Asumsi ini adalah fitur premium. Sesuaikan validasi jika perlu.
+        if (!isPremium) return m.reply(mess.prem); 
 
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
+        let f = await fetch(global.domain + "/api/application/users?page=" + page, { // Menggunakan global.domain
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + global.apikey // Menggunakan global.apikey
+            }
+        });
+        let res = await f.json();
+        let users = res.data;
+        let messageText = "Berikut adalah daftar pengguna (Panel Private):\n\n";
+        
+        if (users.length === 0) {
+            messageText += "Tidak ada pengguna ditemukan pada halaman ini.";
+        } else {
+            for (let user of users) {
+                let u = user.attributes;
+                messageText += `ID User: ${u.id}\n`;
+                messageText += `Username: ${u.username}\n`;
+                messageText += `Email: ${u.email}\n`;
+                messageText += `Admin: ${u.root_admin ? 'Ya' : 'Tidak'}\n`;
+                messageText += `Dibuat: ${new Date(u.created_at).toLocaleString('id-ID')}\n\n`;
+            }
+        }
+        
+        messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
+        messageText += `Total Pengguna: ${res.meta.pagination.count}`;
+        
+        await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
+        
+        if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
+            m.reply(`Gunakan perintah ${prefix}listuser private ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
+        }         
+    } else if (subCommand === 'public') {
+        // Jika user mengetik listuser public
+        // Asumsi ini juga fitur premium. Sesuaikan validasi jika perlu.
+        if (!isPremium) return m.reply(mess.prem); 
 
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "1024"; // 1GB
-      let cpu = "40"; // 40%
-      let disk = "1024"; // 1GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      // --- Langkah 1: Membuat User di Panel Pterodactyl ---
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      // --- Langkah 2: Mengambil Detail Egg untuk Konfigurasi Server ---
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      // --- Langkah 3: Membuat Server di Panel Pterodactyl ---
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+        let f = await fetch(global.domain2 + "/api/application/users?page=" + page, { // Menggunakan global.domain2
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + global.apikey2 // Menggunakan global.apikey2
+            }
+        });
+        let res = await f.json();
+        let users = res.data;
+        let messageText = "Berikut adalah daftar pengguna (Panel Public):\n\n";
+        
+        if (users.length === 0) {
+            messageText += "Tidak ada pengguna ditemukan pada halaman ini.";
+        } else {
+            for (let user of users) {
+                let u = user.attributes;
+                messageText += `ID User: ${u.id}\n`;
+                messageText += `Username: ${u.username}\n`;
+                messageText += `Email: ${u.email}\n`;
+                messageText += `Admin: ${u.root_admin ? 'Ya' : 'Tidak'}\n`;
+                messageText += `Dibuat: ${new Date(u.created_at).toLocaleString('id-ID')}\n\n`;
+            }
+        }
+        
+        messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
+        messageText += `Total Pengguna: ${res.meta.pagination.count}`;
+        
+        await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
+        
+        if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
+            m.reply(`Gunakan perintah ${prefix}listuser public ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
+        }       
+    } else {
+        m.reply(`Format salah. Gunakan:
+            ${prefix}listuser private <halaman_opsional>
+            ${prefix}listuser public <halaman_opsional>`);
     }
-    break;
+}
+break
+case "listsrv": {
+    let subCommand = args[0] ? args[0].toLowerCase() : '';
+    let page = args[1] ? args[1] : '1';
 
-  case "2gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+    // Jika user mengetik listsrv private
+    if (subCommand === 'private') {
+        // Asumsi ini adalah fitur premium, jadi cek isPremium
+        if (!isPremium) return m.reply(mess.prem); 
 
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
+        let f = await fetch(global.domain + "/api/application/servers?page=" + page, { // Menggunakan global.domain
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + global.apikey // Menggunakan global.apikey
+            }
+        });
+        let res = await f.json();
+        let servers = res.data;
+        let messageText = "Berikut adalah daftar server (Panel Private):\n\n";
+        
+        for (let server of servers) {
+            let s = server.attributes;
+            
+            let f3 = await fetch(global.domain + "/api/client/servers/" + s.uuid.split`-`[0] + "/resources", { // Menggunakan global.domain
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + global.capikey // Menggunakan global.capikey
+                }
+            });
+            
+            let data = await f3.json();
+            let status = data.attributes ? data.attributes.current_state : s.status; 
+            
+            messageText += `ID Server: ${s.id}\n`;
+            messageText += `Nama Server: ${s.name}\n`;
+            messageText += `Status: ${status}\n\n`;
+        }
+        
+        messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
+        messageText += `Total Server: ${res.meta.pagination.count}`;
+        
+        await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
+        
+        if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
+            m.reply(`Gunakan perintah ${prefix}listsrv private ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
+        }          
+    } else if (subCommand === 'public') {
+        // Jika user mengetik listsrv public
+        // Asumsi ini juga fitur premium, atau mungkin creator. Sesuaikan validasi.
+        if (!isPremium) return m.reply(mess.prem); // Atau !isCreator jika hanya owner yang boleh melihat public list
 
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "2048"; // 2GB
-      let cpu = "60"; // 60%
-      let disk = "2048"; // 2GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+        let f = await fetch(global.domain2 + "/api/application/servers?page=" + page, { // Menggunakan global.domain2
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + global.apikey2 // Menggunakan global.apikey2
+            }
+        });
+        let res = await f.json();
+        let servers = res.data;
+        let messageText = "Berikut adalah daftar server (Panel Public):\n\n";
+        
+        for (let server of servers) {
+            let s = server.attributes;
+            
+            let f3 = await fetch(global.domain2 + "/api/client/servers/" + s.uuid.split`-`[0] + "/resources", { // Menggunakan global.domain2
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + global.capikey2 // Menggunakan global.capikey2
+                }
+            });
+            
+            let data = await f3.json();
+            let status = data.attributes ? data.attributes.current_state : s.status; 
+            
+            messageText += `ID Server: ${s.id}\n`;
+            messageText += `Nama Server: ${s.name}\n`;
+            messageText += `Status: ${status}\n\n`;
+        }
+        
+        messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
+        messageText += `Total Server: ${res.meta.pagination.count}`;
+        
+        await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
+        
+        if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
+            m.reply(`Gunakan perintah ${prefix}listsrv public ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
+        }      
+    } else {
+        m.reply(`Format salah. Gunakan:
+            ${prefix}listsrv private <halaman_opsional>
+            ${prefix}listsrv public <halaman_opsional>`);
     }
-    break;
+}
+break
 
-  case "3gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+// === Kasus untuk `listadmin` (sekarang 'public' akan pakai global.domain2 lama) ===
+case "listadmin": {
+    let subCommand = args[0] ? args[0].toLowerCase() : '';
+    let page = args[1] ? args[1] : '1';
 
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
+    // Jika user mengetik listadmin public
+    if (subCommand === 'public') {
+        // Ini adalah list admin panel public, kemungkinan hanya creator yang bisa melihat
+        if (!isCreator) return m.reply(mess.owner); 
 
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
+        let f = await fetch(global.domain2 + "/api/application/users?page=" + page, { // Menggunakan global.domain2
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + global.apikey2 // Menggunakan global.apikey2
+            }
+        });
+        let res = await f.json();
+        let users = res.data;
+        let messageText = "Berikut list admin (Panel Public):\n\n";
+        
+        for (let user of users) {
+            let u = user.attributes;
+            if (u.root_admin) { 
+                messageText += `ID: ${u.id}\n`;
+                messageText += `Username: ${u.username}\n`;
+                messageText += `Nama: ${u.first_name} ${u.last_name}\n`;
+                messageText += `Status: ${u.server_limit === null ? 'Active' : 'Inactive'} (Server Limit: ${u.server_limit === -1 ? 'Unlimited' : u.server_limit})\n\n`;
+            }
+        }
+        
+        messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
+        messageText += `Total Admin: ${res.meta.pagination.count}`;
+        
+        await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
+        
+        if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
+            m.reply(`Gunakan perintah ${prefix}listadmin public ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
+        }          
+    } else if (subCommand === 'private') {
+        if (!isCreator) return m.reply(mess.owner); 
 
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "3072"; // 3GB
-      let cpu = "80"; // 80%
-      let disk = "3072"; // 3GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+        let f = await fetch(global.domain + "/api/application/users?page=" + page, { // Menggunakan global.domain
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + global.apikey // Menggunakan global.apikey
+            }
+        });
+        let res = await f.json();
+        let users = res.data;
+        let messageText = "Berikut list admin (Panel Private):\n\n";
+        
+        for (let user of users) {
+            let u = user.attributes;
+            if (u.root_admin) { 
+                messageText += `ID: ${u.id}\n`;
+                messageText += `Username: ${u.username}\n`;
+                messageText += `Nama: ${u.first_name} ${u.last_name}\n`;
+                messageText += `Status: ${u.server_limit === null ? 'Active' : 'Inactive'} (Server Limit: ${u.server_limit === -1 ? 'Unlimited' : u.server_limit})\n\n`;
+            }
+        }
+        
+        messageText += `Halaman: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}\n`;
+        messageText += `Total Admin: ${res.meta.pagination.count}`;
+        
+        await naze.sendMessage(m.chat, { text: messageText }, { quoted: m });
+        
+        if (res.meta.pagination.current_page < res.meta.pagination.total_pages) {
+            m.reply(`Gunakan perintah ${prefix}listadmin private ${res.meta.pagination.current_page + 1} untuk melihat halaman selanjutnya.`);
+        }          
+    } else {
+        m.reply(`Format salah. Gunakan:
+            ${prefix}listadmin private <halaman_opsional>
+            ${prefix}listadmin public <halaman_opsional>`);
     }
-    break;
+}
+break
 
-  case "4gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+// --- Perintah Delete Server (delsrv) ---
+case "delsrv": {
+    if (!isCreator) return m.reply(mess.owner); // Hanya owner yang bisa menggunakan perintah ini
 
-      let t = text.split(",");
-      if (t.length < 2) {
+    let parts = text.split(",");
+    if (parts.length < 2) {
         return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "4096"; // 4GB
-      let cpu = "100"; // 100%
-      let disk = "4096"; // 4GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+            Penggunaan:
+            ${prefix + command} <public/private>,<server_id>
+            Contoh: ${prefix + command} public,32
+            Contoh: ${prefix + command} private,123`);
     }
-    break;
 
-  case "5gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+    let subCommand = parts[0].toLowerCase();
+    let serverId = parts[1].trim();
 
-      let t = text.split(",");
-      if (t.length < 2) {
+    let domainToUse, apikeyToUse;
+    let panelName = "";
+
+    if (subCommand === 'public') {
+        domainToUse = global.domain2;
+        apikeyToUse = global.apikey2;
+        panelName = "Public Panel";
+    } else if (subCommand === 'private') {
+        domainToUse = global.domain;
+        apikeyToUse = global.apikey;
+        panelName = "Private Panel";
+    } else {
+        return m.reply("Jenis panel tidak valid. Gunakan 'public' atau 'private'.");
+    }
+
+    if (!serverId || isNaN(serverId)) {
+        return m.reply("ID server tidak valid. Harap berikan angka ID server.");
+    }
+
+    try {
+        let f = await fetch(`${domainToUse}/api/application/servers/${serverId}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apikeyToUse}`
+            }
+        });
+
+        if (f.status === 204) {
+            await m.reply(`✅ Berhasil menghapus server dengan ID *${serverId}* dari *${panelName}*.`);
+        } else if (f.status === 404) {
+            await m.reply(`❌ Server dengan ID *${serverId}* tidak ditemukan di *${panelName}*.`);
+        } else {
+            let res = await f.json();
+            console.error("Error deleting server:", res);
+            await m.reply(`Terjadi kesalahan saat menghapus server dari *${panelName}*: ${res.errors ? res.errors[0].detail : f.statusText}`);
+        }
+    } catch (e) {
+        console.error("Fetch error deleting server:", e);
+        await m.reply(`Terjadi kesalahan jaringan atau API saat menghapus server dari *${panelName}*.`);
+    }
+}
+break
+case "delsrvall": {
+    // Hanya owner yang bisa menggunakan perintah ini
+    if (!isCreator) return m.reply(mess.owner);
+
+    // Format perintah: delsrvall <public/private> confirm
+    // Perintah ini membutuhkan konfirmasi eksplisit untuk mencegah penghapusan tidak sengaja.
+    let panelType = args[0] ? args[0].toLowerCase() : '';
+    let confirmation = args[1] ? args[1].toLowerCase() : '';
+
+    if (!['public', 'private'].includes(panelType)) {
         return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "5120"; // 5GB
-      let cpu = "120"; // 120%
-      let disk = "5120"; // 5GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+            Penggunaan:
+            ${prefix + command} private confirm (Menghapus semua server di Panel Private kecuali yang dikecualikan)
+            ${prefix + command} public confirm (Menghapus semua server di Panel Public kecuali yang dikecualikan)`);
     }
-    break;
 
-  case "6gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+    let domainToUse, apikeyToUse, panelName, excludedServersList;
 
-      let t = text.split(",");
-      if (t.length < 2) {
+    if (panelType === 'public') {
+        domainToUse = global.domain2;
+        apikeyToUse = global.apikey2;
+        panelName = "Public Panel";
+        excludedServersList = global.excludedServerIdsPublic || []; // Ambil dari global, jika belum didefinisikan pakai array kosong
+    } else { // panelType === 'private'
+        domainToUse = global.domain;
+        apikeyToUse = global.apikey;
+        panelName = "Private Panel";
+        excludedServersList = global.excludedServerIdsPrivate || []; // Ambil dari global, jika belum didefinisikan pakai array kosong
+    }
+
+    // Konfirmasi eksplisit diperlukan
+    if (confirmation !== 'confirm') {
+        let exclusionMessage = excludedServersList.length > 0
+            ? `ID server yang *tidak akan dihapus* adalah: ${excludedServersList.join(', ')}.`
+            : `Tidak ada server yang dikecualikan (semua server akan dihapus jika ada).`;
+
+        return m.reply(`❗ *PERINGATAN KERAS!* Anda akan menghapus *SEMUA* server dari *${panelName}*.\n` +
+                       `${exclusionMessage}\n\n` +
+                       `*Tindakan ini tidak bisa dibatalkan.*\n\n` +
+                       `Untuk melanjutkan, ketik: *${prefix}delsrvall ${panelType} confirm*`);
+    }
+
+    await m.reply(`Memulai proses penghapusan massal server di *${panelName}*. Server yang dikecualikan tidak akan dihapus.`);
+
+    try {
+        let allServers = [];
+        let currentPage = 1;
+        let totalPages = 1;
+
+        // Mendapatkan daftar semua server dari panel (menangani pagination)
+        do {
+            let listRes = await fetch(`${domainToUse}/api/application/servers?page=${currentPage}`, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apikeyToUse}`
+                }
+            });
+
+            if (listRes.status !== 200) {
+                let errorData = await listRes.json();
+                return m.reply(`Gagal mendapatkan daftar server dari *${panelName}*: ${errorData.errors ? errorData.errors[0].detail : listRes.statusText}`);
+            }
+
+            let listJson = await listRes.json();
+            allServers = allServers.concat(listJson.data);
+            totalPages = listJson.meta.pagination.total_pages;
+            currentPage++;
+        } while (currentPage <= totalPages);
+
+        if (allServers.length === 0) {
+            return m.reply(`Tidak ada server ditemukan di *${panelName}* untuk dihapus.`);
+        }
+
+        let deletedCount = 0;
+        let skippedCount = 0;
+        let failedCount = 0;
+        let deleteResults = [];
+
+        // Iterasi dan hapus server
+        for (const server of allServers) {
+            const serverIdToDelete = server.attributes.id.toString(); // Pastikan ID adalah string untuk perbandingan
+            const serverName = server.attributes.name;
+
+            // Memeriksa apakah server ini ada dalam daftar pengecualian
+            if (excludedServersList.includes(serverIdToDelete)) {
+                deleteResults.push(`- Server ID ${serverIdToDelete} (*${serverName}*) dilewati (dikecualikan).`);
+                skippedCount++;
+                continue; // Lanjut ke server berikutnya tanpa menghapus
+            }
+
+            // Melakukan permintaan DELETE untuk server yang tidak dikecualikan
+            try {
+                let deleteRes = await fetch(`${domainToUse}/api/application/servers/${serverIdToDelete}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apikeyToUse}`
+                    }
+                });
+
+                if (deleteRes.status === 204) {
+                    deleteResults.push(`✅ Server ID ${serverIdToDelete} (*${serverName}*) berhasil dihapus.`);
+                    deletedCount++;
+                } else if (deleteRes.status === 404) {
+                    deleteResults.push(`❌ Server ID ${serverIdToDelete} (*${serverName}*) tidak ditemukan di *${panelName}*. Mungkin sudah dihapus.`);
+                    failedCount++;
+                } else {
+                    let errorDetail = await deleteRes.json().then(data => data.errors ? data.errors[0].detail : deleteRes.statusText).catch(() => deleteRes.statusText);
+                    deleteResults.push(`⚠️ Gagal menghapus Server ID ${serverIdToDelete} (*${serverName}*): ${errorDetail}`);
+                    failedCount++;
+                }
+            } catch (deleteError) {
+                console.error(`Error deleting server ${serverIdToDelete}:`, deleteError);
+                deleteResults.push(`⚠️ Terjadi kesalahan jaringan/API saat menghapus server ID ${serverIdToDelete} (*${serverName}*).`);
+                failedCount++;
+            }
+            // Disarankan untuk menambahkan jeda singkat jika menghapus banyak server untuk menghindari rate limit API
+            await new Promise(resolve => setTimeout(resolve, 200));
+        }
+
+        // Kirim hasil akhir
+        let finalMessage = `*Proses Penghapusan Server Selesai di ${panelName}:*\n\n`;
+        finalMessage += deleteResults.join('\n');
+        finalMessage += `\n\n--- Statistik ---\n`;
+        finalMessage += `Berhasil dihapus: ${deletedCount}\n`;
+        finalMessage += `Dilewati (dikecualikan): ${skippedCount}\n`;
+        finalMessage += `Gagal/Error: ${failedCount}`;
+
+        await naze.sendMessage(m.chat, { text: finalMessage }, { quoted: m });
+
+    } catch (e) {
+        console.error("Kesalahan umum saat menghapus server:", e);
+        await m.reply(`Terjadi kesalahan tak terduga saat mencoba menghapus server dari *${panelName}*. Error: ${e.message}`);
+    }
+}
+break
+
+// --- Perintah Delete User (delusr) ---
+case "delusr": {
+    if (!isCreator) return m.reply(mess.owner); // Hanya owner yang bisa menggunakan perintah ini
+
+    let parts = text.split(",");
+    if (parts.length < 2) {
         return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "6144"; // 6GB
-      let cpu = "140"; // 140%
-      let disk = "6144"; // 6GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+            Penggunaan:
+            ${prefix + command} <public/private>,<user_id>
+            Contoh: ${prefix + command} public,24
+            Contoh: ${prefix + command} private,56`);
     }
-    break;
 
-  case "7gb":
+    let subCommand = parts[0].toLowerCase();
+    let userId = parts[1].trim();
+
+    let domainToUse, apikeyToUse;
+    let panelName = "";
+
+    if (subCommand === 'public') {
+        domainToUse = global.domain2;
+        apikeyToUse = global.apikey2;
+        panelName = "Public Panel";
+    } else if (subCommand === 'private') {
+        domainToUse = global.domain;
+        apikeyToUse = global.apikey;
+        panelName = "Private Panel";
+    } else {
+        return m.reply("Jenis panel tidak valid. Gunakan 'public' atau 'private'.");
+    }
+
+    if (!userId || isNaN(userId)) {
+        return m.reply("ID user tidak valid. Harap berikan angka ID user.");
+    }
+
+    try {
+        let f = await fetch(`${domainToUse}/api/application/users/${userId}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apikeyToUse}`
+            }
+        });
+
+        if (f.status === 204) {
+            await m.reply(`✅ Berhasil menghapus user dengan ID *${userId}* dari *${panelName}*.`);
+        } else if (f.status === 404) {
+            await m.reply(`❌ User dengan ID *${userId}* tidak ditemukan di *${panelName}*.`);
+        } else {
+            let res = await f.json();
+            console.error("Error deleting user:", res);
+            await m.reply(`Terjadi kesalahan saat menghapus user dari *${panelName}*: ${res.errors ? res.errors[0].detail : f.statusText}`);
+        }
+    } catch (e) {
+        console.error("Fetch error deleting user:", e);
+        await m.reply(`Terjadi kesalahan jaringan atau API saat menghapus user dari *${panelName}*.`);
+    }
+}
+break
+//------------------------------------------------------------- AWAL PANEL PRIVATE -------------------------------------------------------------
+case "private":
     {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+        // Validasi awal
+        if (!m.isGroup) return m.reply(mess.group);
+        if (!isPremium) return m.reply(mess.ress);
+        if (!isLimit) return m.reply(mess.limit);
 
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
+        let parts = text.split(",");
+        if (parts.length < 3) {
+            return m.reply(`*Format salah!*
+                Penggunaan:
+                ${prefix + command} <ukuran_GB/MB/unli>,<username>,<nomer_target>
+                Contoh: ${prefix + command} 16gb,izhar,62*******
+                Contoh: ${prefix + command} unli,izhar,62*******`);
+        }
 
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
+        let sizeInput = parts[0].toLowerCase();
+        let username = parts[1];
+        let u = m.quoted ? m.quoted.sender : parts[2] ? parts[2].replace(/[^0-9]/g, "") + "@s.whatsapp.net" : m.mentionedJid[0];
 
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "7168"; // 7GB
-      let cpu = "160"; // 160%
-      let disk = "7168"; // 7GB
-      let email = username + "@gmail.com";
+        // --- Inisialisasi variabel untuk RAM, Disk, CPU ---
+        let memo; // Akan menyimpan RAM dalam MB
+        let disk; // Akan menyimpan Disk dalam GB
+        let cpu; // Akan menyimpan CPU dalam persen
 
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
+        // --- Logika untuk Opsi "unli" ---
+        if (sizeInput === 'unli') {
+            memo = 0; // Set RAM ke 0 (unlimited di Pterodactyl)
+            disk = 0; // Set Disk ke 0 (unlimited di Pterodactyl)
+            cpu = 0; // Set CPU ke 0 (unlimited di Pterodactyl)
+            m.reply("Membuat server dengan alokasi RAM, Disk, dan CPU tak terbatas (0).");
+        } else {
+            // --- Parsing RAM, Disk, dan CPU (jika bukan "unli") ---
+            try {
+                const sizeMatch = sizeInput.match(/^(\d+)(gb|mb)$/);
+                if (!sizeMatch) {
+                    return m.reply("Format ukuran RAM/Disk salah. Contoh: 1GB, 512MB, atau 'unli'.");
+                }
+                let value = parseInt(sizeMatch[1]);
+                let unit = sizeMatch[2];
 
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
+                let baseGb; // Variabel untuk menyimpan ukuran dalam GB yang menjadi dasar perhitungan CPU
 
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
+                if (unit === 'gb') {
+                    memo = value * 1024; // Konversi GB ke MB untuk RAM
+                    disk = value; // Disk sudah dalam GB
+                    baseGb = value; // Dasar perhitungan CPU adalah nilai GB langsung
+                } else if (unit === 'mb') {
+                    memo = value; // RAM sudah dalam MB
+                    disk = Math.ceil(value / 1024); // Konversi MB ke GB untuk Disk (dibulatkan ke atas)
+                    if (disk === 0 && value > 0) {
+                        disk = 1; // Pastikan disk minimal 1GB jika RAM kurang dari 1GB tapi lebih dari 0MB
+                    }
+                    baseGb = disk; // Dasar perhitungan CPU adalah nilai disk dalam GB (setelah dibulatkan)
+                }
 
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
+                // Batasan
+                const MAX_RAM_GB = 16;
+                const MAX_DISK_GB = 16;
+                const MIN_RAM_MB = 512;
+                const MIN_DISK_GB = 1;
 
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
+                if (memo > (MAX_RAM_GB * 1024) || disk > MAX_DISK_GB) {
+                    return m.reply(`Ukuran RAM/Disk maksimal yang diizinkan adalah ${MAX_RAM_GB}GB.`);
+                }
+                if (memo < MIN_RAM_MB || disk < MIN_DISK_GB) {
+                    return m.reply(`Ukuran RAM minimal adalah ${MIN_RAM_MB}MB dan Disk minimal ${MIN_DISK_GB}GB.`);
+                }
 
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
+                // --- Logika Perhitungan CPU yang Disesuaikan (jika bukan "unli") ---
+                const BASE_CPU_FOR_1GB = 40;
+                const CPU_INCREMENT_PER_GB = 20;
 
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
+                if (baseGb <= 0) {
+                    cpu = BASE_CPU_FOR_1GB;
+                } else {
+                    cpu = BASE_CPU_FOR_1GB + ((baseGb - 1) * CPU_INCREMENT_PER_GB);
+                }
 
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
+                const MAX_ALLOWED_CPU = 200;
+                const MIN_ALLOWED_CPU = 40;
 
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+                if (cpu > MAX_ALLOWED_CPU) {
+                    cpu = MAX_ALLOWED_CPU;
+                } else if (cpu < MIN_ALLOWED_CPU) {
+                    cpu = MIN_ALLOWED_CPU;
+                }
+                cpu = Math.round(cpu);
+
+            } catch (e) {
+                console.error(e);
+                return m.reply("Terjadi kesalahan saat memparsing ukuran RAM/Disk atau menghitung CPU. Pastikan formatnya benar atau gunakan 'unli'.");
+            }
+        }
+        // --- Akhir Parsing RAM, Disk, dan CPU ---
+
+        // Validasi nomor target
+        if (!u) {
+            return m.reply(
+                "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
+            );
+        }
+
+        // Variabel lain dan proses pembuatan akun/server
+        let name = username + " dev";
+        let egg = global.eggsnya; // Menggunakan global.eggsnya (tanpa '2')
+        let loc = global.location; // Menggunakan global.location (tanpa '2')
+        let email = username + "@gmail.com";
+
+        let randomSuffix = generateRandomString(6); // Pastikan generateRandomString() tersedia
+        let password = username + randomSuffix;
+
+        // Membuat Pengguna (User) di Panel
+        let f = await fetch(global.domain + "/api/application/users", { // Menggunakan global.domain (tanpa '2')
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + global.apikey, // Menggunakan global.apikey (tanpa '2')
+            },
+            body: JSON.stringify({
+                email: email,
+                username: username,
+                first_name: username,
+                last_name: username,
+                language: "en",
+                password: password,
+            }),
+        });
+        let data = await f.json();
+        if (data.errors) {
+            return m.reply(JSON.stringify(data.errors[0], null, 2));
+        }
+        let user = data.attributes;
+
+        m.reply(`BERHASIL CREATE\nUSER ID: *${user.id}`);
+
+        // Mendapatkan Startup Command
+        let f2 = await fetch(global.domain + "/api/application/nests/5/eggs/" + egg, { // Menggunakan global.domain (tanpa '2')
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + global.apikey, // Menggunakan global.apikey (tanpa '2')
+            },
+        });
+        let data2 = await f2.json();
+        let startup_cmd = data2.attributes.startup;
+
+        // Menyusun pesan informasi untuk pengguna (dengan penyesuaian jika 'unli')
+        let displayRam = memo === 0 ? "Unlimited" : `${memo}MB`;
+        let displayDisk = disk === 0 ? "Unlimited" : `${disk}GB`;
+        let displayCpu = cpu === 0 ? "Unlimited" : `${cpu}%`;
+
+        let ctf = `*『 DATA AKUN PANEL ANDA 』*\n` +
+            `\n` +
+            `⎙─➤ *👤USERNAME* : ${user.username}\n` +
+            `⎙─➤ *🔐PASSWORD* : ${password}\n` +
+            `⎙─➤ *🌐LOGIN* : ${global.domain}\n` + // Menggunakan global.domain (tanpa '2')
+            `⎙─➤ *📈RAM* : ${displayRam}\n` +
+            `⎙─➤ *🖥️CPU* : ${displayCpu}\n` +
+            `⎙─➤ *💾DISK* : ${displayDisk}\n` +
+            `\n\n` +
+            `*NOTE:*\n` +
+            `[𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫\n` +
+            `[𝟮] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔\n` +
+            `[𝟯] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟\n` +
+            `\n` +
+            `> BY IzharDevelop\n` +
+            `> FROM INV_MultiMedia\n` +
+            `buy panel murah? https://wa.me/628852536578\n` +
+            `===============================`;
+
+        const githubImageUrl = global.thumb; // Menggunakan global.thumb (tanpa '2')
+
+        await naze.sendMessage(u, {
+            image: {
+                url: githubImageUrl
+            },
+            caption: ctf,
+        });
+
+        // Membuat Server di Panel (dengan nilai 0 untuk unlimited)
+        let f3 = await fetch(global.domain + "/api/application/servers", { // Menggunakan global.domain (tanpa '2')
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + global.apikey, // Menggunakan global.apikey (tanpa '2')
+            },
+            body: JSON.stringify({
+                name: name,
+                description: "by ZORO BOT Vana dan izhar jodohku",
+                user: user.id,
+                egg: parseInt(egg),
+                docker_image: global.nodejs, // Menggunakan global.nodejs (tanpa '2')
+                startup: startup_cmd,
+                environment: {
+                    INST: "npm",
+                    USER_UPLOAD: "0",
+                    AUTO_UPDATE: "0",
+                    CMD_RUN: "npm start",
+                },
+                limits: {
+                    memory: memo,
+                    swap: 0,
+                    disk: disk,
+                    io: 500,
+                    cpu: cpu,
+                },
+                feature_limits: {
+                    databases: 5,
+                    backups: 5,
+                    allocations: 1,
+                },
+                deploy: {
+                    locations: [parseInt(loc)],
+                    dedicated_ip: false,
+                    port_range: [],
+                },
+            }),
+        });
+        let res = await f3.json();
+        if (res.errors) {
+            return m.reply(JSON.stringify(res.errors[0], null, 2));
+        }
+        let server = res.attributes;
+
+        // Pesan konfirmasi akhir
+        await m.reply(`*INFOMASI PANEL*\n\n* STATUS: DONE\n* USER ID: *${user.id}\n* USERNAME: ${user.username}\n* RAM: ${displayRam}\n* CPU:${displayCpu}\n* DISK: ${displayDisk}\n* TERKIRIM KE:@${u.split("@")[0]}\n\n\n\n\n\n\n*JANGAN LUPA JEDA 10MENIT YA!!!!*
+        `);
     }
-    break;
-
-  case "8gb":
+    break
+//------------------------------------------------------------- END PANEL PRIVATE -----------------------------------------------------------------
+//-------------------------------------------------------------- AWAL PUBLIC ----------------------------------------------------------------
+case "pub":
+case "public": // Menggunakan nama case yang sudah disepakati sebelumnya
     {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
+        // Validasi awal
+        if (!m.isGroup) return m.reply(mess.group);
+        if (!isPremium) return m.reply(mess.ress);
+        if (!isLimit) return m.reply(mess.limit);
 
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
+        let parts = text.split(",");
+        if (parts.length < 3) {
+            return m.reply(`*Format salah!*
+                Penggunaan:
+                ${prefix + command} <ukuran_GB/MB/unli>,<username>,<nomer_target>
+                Contoh: ${prefix + command} 16gb,izhar,62*******
+                Contoh: ${prefix + command} unli,izhar,62*******`);
+        }
 
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
+        let sizeInput = parts[0].toLowerCase();
+        let username = parts[1];
+        let u = m.quoted ? m.quoted.sender : parts[2] ? parts[2].replace(/[^0-9]/g, "") + "@s.whatsapp.net" : m.mentionedJid[0];
 
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "8192"; // 8GB
-      let cpu = "180"; // 180%
-      let disk = "8192"; // 8GB
-      let email = username + "@gmail.com";
+        // --- Inisialisasi variabel untuk RAM, Disk, CPU ---
+        let memo; // Akan menyimpan RAM dalam MB
+        let disk; // Akan menyimpan Disk dalam GB
+        let cpu; // Akan menyimpan CPU dalam persen
 
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
+        // --- Logika untuk Opsi "unli" ---
+        if (sizeInput === 'unli') {
+            memo = 0; // Set RAM ke 0 (unlimited di Pterodactyl)
+            disk = 0; // Set Disk ke 0 (unlimited di Pterodactyl)
+            cpu = 0; // Set CPU ke 0 (unlimited di Pterodactyl)
+            m.reply("Membuat server dengan alokasi RAM, Disk, dan CPU tak terbatas (0).");
+        } else {
+            // --- Parsing RAM, Disk, dan CPU (jika bukan "unli") ---
+            try {
+                const sizeMatch = sizeInput.match(/^(\d+)(gb|mb)$/);
+                if (!sizeMatch) {
+                    return m.reply("Format ukuran RAM/Disk salah. Contoh: 1GB, 512MB, atau 'unli'.");
+                }
+                let value = parseInt(sizeMatch[1]);
+                let unit = sizeMatch[2];
 
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
+                let baseGb; // Variabel untuk menyimpan ukuran dalam GB yang menjadi dasar perhitungan CPU
 
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
+                if (unit === 'gb') {
+                    memo = value * 1024; // Konversi GB ke MB untuk RAM
+                    disk = value; // Disk sudah dalam GB
+                    baseGb = value; // Dasar perhitungan CPU adalah nilai GB langsung
+                } else if (unit === 'mb') {
+                    memo = value; // RAM sudah dalam MB
+                    disk = Math.ceil(value / 1024); // Konversi MB ke GB untuk Disk (dibulatkan ke atas)
+                    if (disk === 0 && value > 0) {
+                        disk = 1; // Pastikan disk minimal 1GB jika RAM kurang dari 1GB tapi lebih dari 0MB
+                    }
+                    baseGb = disk; // Dasar perhitungan CPU adalah nilai disk dalam GB (setelah dibulatkan)
+                }
 
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
+                // Batasan
+                const MAX_RAM_GB = 16;
+                const MAX_DISK_GB = 16;
+                const MIN_RAM_MB = 512;
+                const MIN_DISK_GB = 1;
 
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
+                if (memo > (MAX_RAM_GB * 1024) || disk > MAX_DISK_GB) {
+                    return m.reply(`Ukuran RAM/Disk maksimal yang diizinkan adalah ${MAX_RAM_GB}GB.`);
+                }
+                if (memo < MIN_RAM_MB || disk < MIN_DISK_GB) {
+                    return m.reply(`Ukuran RAM minimal adalah ${MIN_RAM_MB}MB dan Disk minimal ${MIN_DISK_GB}GB.`);
+                }
 
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
+                // --- Logika Perhitungan CPU yang Disesuaikan (jika bukan "unli") ---
+                const BASE_CPU_FOR_1GB = 40;
+                const CPU_INCREMENT_PER_GB = 20;
 
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
+                if (baseGb <= 0) {
+                    cpu = BASE_CPU_FOR_1GB;
+                } else {
+                    cpu = BASE_CPU_FOR_1GB + ((baseGb - 1) * CPU_INCREMENT_PER_GB);
+                }
 
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
+                const MAX_ALLOWED_CPU = 200;
+                const MIN_ALLOWED_CPU = 40;
 
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
+                if (cpu > MAX_ALLOWED_CPU) {
+                    cpu = MAX_ALLOWED_CPU;
+                } else if (cpu < MIN_ALLOWED_CPU) {
+                    cpu = MIN_ALLOWED_CPU;
+                }
+                cpu = Math.round(cpu);
+
+            } catch (e) {
+                console.error(e);
+                return m.reply("Terjadi kesalahan saat memparsing ukuran RAM/Disk atau menghitung CPU. Pastikan formatnya benar atau gunakan 'unli'.");
+            }
+        }
+        // --- Akhir Parsing RAM, Disk, dan CPU ---
+
+        // Validasi nomor target
+        if (!u) {
+            return m.reply(
+                "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
+            );
+        }
+
+        // Variabel lain dan proses pembuatan akun/server
+        let name = username + " dev";
+        let egg = global.eggsnya2; // Menggunakan global.eggsnya2
+        let loc = global.location2; // Menggunakan global.location2
+        let email = username + "@gmail.com";
+
+        let randomSuffix = generateRandomString(6); // Pastikan generateRandomString() tersedia
+        let password = username + randomSuffix;
+
+        // Membuat Pengguna (User) di Panel
+        let f = await fetch(global.domain2 + "/api/application/users", { // Menggunakan global.domain2
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + global.apikey2, // Menggunakan global.apikey2
+            },
+            body: JSON.stringify({
+                email: email,
+                username: username,
+                first_name: username,
+                last_name: username,
+                language: "en",
+                password: password,
+            }),
+        });
+        let data = await f.json();
+        if (data.errors) {
+            return m.reply(JSON.stringify(data.errors[0], null, 2));
+        }
+        let user = data.attributes;
+
+        m.reply(`BERHASIL CREATE\nUSER ID: *${user.id}`);
+
+        // Mendapatkan Startup Command
+        let f2 = await fetch(global.domain2 + "/api/application/nests/5/eggs/" + egg, { // Menggunakan global.domain2
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + global.apikey2, // Menggunakan global.apikey2
+            },
+        });
+        let data2 = await f2.json();
+        let startup_cmd = data2.attributes.startup;
+
+        // Menyusun pesan informasi untuk pengguna (dengan penyesuaian jika 'unli')
+        let displayRam = memo === 0 ? "Unlimited" : `${memo}MB`;
+        let displayDisk = disk === 0 ? "Unlimited" : `${disk}GB`;
+        let displayCpu = cpu === 0 ? "Unlimited" : `${cpu}%`;
+
+        let ctf = `*『 DATA AKUN PANEL ANDA 』*\n` +
+            `\n` +
+            `⎙─➤ *👤USERNAME* : ${user.username}\n` +
+            `⎙─➤ *🔐PASSWORD* : ${password}\n` +
+            `⎙─➤ *🌐LOGIN* : ${global.domain2}\n` + // Menggunakan global.domain2
+            `⎙─➤ *📈RAM* : ${displayRam}\n` +
+            `⎙─➤ *🖥️CPU* : ${displayCpu}\n` +
+            `⎙─➤ *💾DISK* : ${displayDisk}\n` +
+            `\n\n` +
+            `*NOTE:*\n` +
+            `[𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫\n` +
+            `[𝟮] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔\n` +
+            `[𝟯] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟\n` +
+            `\n` +
+            `> BY IzharDevelop\n` +
+            `> FROM INV_MultiMedia\n` +
+            `buy panel murah? https://wa.me/628852536578\n` +
+            `===============================`;
+
+        const githubImageUrl = global.thumb2; // Menggunakan global.thumb2
+
+        await naze.sendMessage(u, {
+            image: {
+                url: githubImageUrl
+            },
+            caption: ctf,
+        });
+
+        // Membuat Server di Panel (dengan nilai 0 untuk unlimited)
+        let f3 = await fetch(global.domain2 + "/api/application/servers", { // Menggunakan global.domain2
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + global.apikey2, // Menggunakan global.apikey2
+            },
+            body: JSON.stringify({
+                name: name,
+                description: "by ZORO BOT Vana dan izhar jodohku",
+                user: user.id,
+                egg: parseInt(egg),
+                docker_image: global.nodejs2, // Menggunakan global.nodejs2
+                startup: startup_cmd,
+                environment: {
+                    INST: "npm",
+                    USER_UPLOAD: "0",
+                    AUTO_UPDATE: "0",
+                    CMD_RUN: "npm start",
+                },
+                limits: {
+                    memory: memo,
+                    swap: 0,
+                    disk: disk,
+                    io: 500,
+                    cpu: cpu,
+                },
+                feature_limits: {
+                    databases: 5,
+                    backups: 5,
+                    allocations: 1,
+                },
+                deploy: {
+                    locations: [parseInt(loc)],
+                    dedicated_ip: false,
+                    port_range: [],
+                },
+            }),
+        });
+        let res = await f3.json();
+        if (res.errors) {
+            return m.reply(JSON.stringify(res.errors[0], null, 2));
+        }
+        let server = res.attributes;
+
+        // Pesan konfirmasi akhir
+        await m.reply(`*INFOMASI PANEL*\n\n* STATUS: DONE\n* USER ID: *${user.id}\n* USERNAME: ${user.username}\n* RAM: ${displayRam}\n* CPU:${displayCpu}\n* DISK: ${displayDisk}\n* TERKIRIM KE:@${u.split("@")[0]}\n\n\n\n\n\n\n*JANGAN LUPA JEDA 10MENIT YA!!!!*
+        `);
     }
-    break;
-
-  case "9gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "9216"; // 9GB
-      let cpu = "200"; // 200%
-      let disk = "9216"; // 9GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
-    }
-    break;
-
-  case "10gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-      Penggunaan:
-      ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "10240"; // 10GB
-      let cpu = "220"; // 220%
-      let disk = "10240"; // 10GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-      
-      ⎙─➤ *👤USERNAME* : ${user.username}
-      ⎙─➤ *🔐PASSWORD* : ${password}
-      ⎙─➤ *🌐LOGIN* : ${domain}
-      
-      NOTE:
-      [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-      [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-      [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-  
-      > BY IzharDevelop
-      > FROM INV_MultiMedia
-      buy panel murah? https://wa.me/628852536578
-      ===============================
-      `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-      @${u.split("@")[0]}
-      `);
-    }
-    break;
-  case "11gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-    Penggunaan:
-    ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "11264"; // 11GB
-      let cpu = "240"; // 240%
-      let disk = "11264"; // 11GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-    
-    ⎙─➤ *👤USERNAME* : ${user.username}
-    ⎙─➤ *🔐PASSWORD* : ${password}
-    ⎙─➤ *🌐LOGIN* : ${domain}
-    
-    NOTE:
-    [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-    [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-    [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-
-    > BY IzharDevelop
-    > FROM INV_MultiMedia
-    buy panel murah? https://wa.me/628852536578
-    ===============================
-    `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-    @${u.split("@")[0]}
-    `);
-    }
-    break;
-
-  case "12gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-    Penggunaan:
-    ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "12288"; // 12GB
-      let cpu = "260"; // 260%
-      let disk = "12288"; // 12GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-    
-    ⎙─➤ *👤USERNAME* : ${user.username}
-    ⎙─➤ *🔐PASSWORD* : ${password}
-    ⎙─➤ *🌐LOGIN* : ${domain}
-    
-    NOTE:
-    [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-    [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-    [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-
-    > BY IzharDevelop
-    > FROM INV_MultiMedia
-    buy panel murah? https://wa.me/628852536578
-    ===============================
-    `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-    @${u.split("@")[0]}
-    `);
-    }
-    break;
-
-  case "13gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-    Penggunaan:
-    ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "13312"; // 13GB
-      let cpu = "280"; // 280%
-      let disk = "13312"; // 13GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-    
-    ⎙─➤ *👤USERNAME* : ${user.username}
-    ⎙─➤ *🔐PASSWORD* : ${password}
-    ⎙─➤ *🌐LOGIN* : ${domain}
-    
-    NOTE:
-    [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-    [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-    [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-
-    > BY IzharDevelop
-    > FROM INV_MultiMedia
-    buy panel murah? https://wa.me/628852536578
-    ===============================
-    `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-    @${u.split("@")[0]}
-    `);
-    }
-    break;
-
-  case "14gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-    Penggunaan:
-    ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "14336"; // 14GB
-      let cpu = "300"; // 300%
-      let disk = "14336"; // 14GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-    
-    ⎙─➤ *👤USERNAME* : ${user.username}
-    ⎙─➤ *🔐PASSWORD* : ${password}
-    ⎙─➤ *🌐LOGIN* : ${domain}
-    
-    NOTE:
-    [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-    [𝟮] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-    [𝟯] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-
-    > BY IzharDevelop
-    > FROM INV_MultiMedia
-    buy panel murah? https://wa.me/628852536578
-    ===============================
-    `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-    @${u.split("@")[0]}
-    `);
-    }
-    break;
-
-  case "15gb":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-    Penggunaan:
-    ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "15360"; // 15GB
-      let cpu = "320"; // 320%
-      let disk = "15360"; // 15GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-    
-    ⎙─➤ *👤USERNAME* : ${user.username}
-    ⎙─➤ *🔐PASSWORD* : ${password}
-    ⎙─➤ *🌐LOGIN* : ${domain}
-    
-    NOTE:
-    [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-    [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-    [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-
-    > BY IzharDevelop
-    > FROM INV_MultiMedia
-    buy panel murah? https://wa.me/628852536578
-    ===============================
-    `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-    @${u.split("@")[0]}
-    `);
-    }
-    break;
-
-  case "unli": case "unly":
-    {
-      if (!m.isGroup) return m.reply(mess.group);
-      if (!isPremium) return m.reply(mess.ress);
-      if (!isLimit) return m.reply(mess.limit);
-
-      let t = text.split(",");
-      if (t.length < 2) {
-        return m.reply(`*Format salah!*
-    Penggunaan:
-    ${prefix + command} user,nomer`);
-      }
-
-      let username = t[0];
-      let u = m.quoted
-        ? m.quoted.sender
-        : t[1]
-        ? t[1].replace(/[^0-9]/g, "") + "@s.whatsapp.net"
-        : m.mentionedJid[0];
-
-      let name = username + " dev";
-      let egg = global.eggsnya;
-      let loc = global.location;
-      let memo = "0"; // 16GB
-      let cpu = "0"; // 340%
-      let disk = "0"; // 16GB
-      let email = username + "@gmail.com";
-
-      if (!u) {
-        return m.reply(
-          "Nomor target tidak ditemukan. Harap sebutkan nomor, atau reply pesan."
-        );
-      }
-
-      let randomSuffix = generateRandomString(6);
-      let password = username + randomSuffix;
-
-      let f = await fetch(domain + "/api/application/users", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          first_name: username,
-          last_name: username,
-          language: "en",
-          password: password,
-        }),
-      });
-      let data = await f.json();
-      if (data.errors) {
-        return m.reply(JSON.stringify(data.errors[0], null, 2));
-      }
-      let user = data.attributes;
-
-      m.reply(`SUKSES MEMBUAT USER ID: *${user.id}*`);
-      let f2 = await fetch(domain + "/api/application/nests/5/eggs/" + egg, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-      });
-      let data2 = await f2.json();
-      let startup_cmd = data2.attributes.startup;
-
-      let ctf = `*『 DATA AKUN PANEL ANDA 』*
-    
-    ⎙─➤ *👤USERNAME* : ${user.username}
-    ⎙─➤ *🔐PASSWORD* : ${password}
-    ⎙─➤ *🌐LOGIN* : ${domain}
-    
-    NOTE:
-    [𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫
-    [𝟮] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔
-    [𝟯] 𝗝𝗔𝗡𝗚𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗪𝗘𝗕𝗦𝗜𝗧𝗘 𝗣𝗔𝗡𝗘𝗟
-
-    > BY IzharDevelop
-    > FROM INV_MultiMedia
-    buy panel murah? https://wa.me/628852536578
-    ===============================
-    `;
-
-      const githubImageUrl =
-        "https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg";
-
-      await naze.sendMessage(u, {
-        image: { url: githubImageUrl },
-        caption: ctf,
-      });
-
-      let f3 = await fetch(domain + "/api/application/servers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + apikey,
-        },
-        body: JSON.stringify({
-          name: name,
-          description: "by ZORO BOT Vana dan izhar jodohku",
-          user: user.id,
-          egg: parseInt(egg),
-          docker_image: "ghcr.io/parkervcp/yolks:nodejs_21",
-          startup: startup_cmd,
-          environment: {
-            INST: "npm",
-            USER_UPLOAD: "0",
-            AUTO_UPDATE: "0",
-            CMD_RUN: "npm start",
-          },
-          limits: {
-            memory: memo,
-            swap: 0,
-            disk: disk,
-            io: 500,
-            cpu: cpu,
-          },
-          feature_limits: {
-            databases: 5,
-            backups: 5,
-            allocations: 1,
-          },
-          deploy: {
-            locations: [parseInt(loc)],
-            dedicated_ip: false,
-            port_range: [],
-          },
-        }),
-      });
-      let res = await f3.json();
-      if (res.errors) {
-        return m.reply(JSON.stringify(res.errors[0], null, 2));
-      }
-      let server = res.attributes;
-
-      await m.reply(`DONE CUY, BERHASIL TERKIRIM KE:
-    @${u.split("@")[0]}
-    `);
-    }
-    break;
-//--------------------------------------------------------------- END PANEL V1 ----------------------------------------------------------------
-                
+    break
+//------------------------------------------------------------ END POINT CPANEL V2 -------------------------------------------------------------
 			
 			// Owner Menu
 			case 'shutdown': case 'off': {
