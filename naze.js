@@ -1195,6 +1195,101 @@ case "delsrv": {
     }
 }
 break
+case "cadmin": {
+    if (!isCreator) return m.reply(mess.owner); // Hanya owner yang bisa menggunakan perintah ini
+
+    let parts = text.split(",");
+    if (parts.length < 4) {
+        return m.reply(`*Format salah!*
+            Penggunaan:
+            ${prefix + command} <public/private>,<username>,<email>,<password>
+            Contoh: ${prefix + command} private,admin_baru,admin@example.com,PasswordSangatAman!
+            Contoh: ${prefix + command} public,owner_panel2,owner2@example.com,PasswordKedua!`);
+    }
+
+    let panelType = parts[0].toLowerCase().trim();
+    let username = parts[1].trim();
+    let email = parts[2].trim();
+    let password = parts[3].trim();
+
+    let domainToUse, apikeyToUse;
+    let panelName = "";
+
+    if (panelType === 'public') {
+        domainToUse = global.domain2;
+        apikeyToUse = global.apikey2;
+        panelName = "Public Panel";
+    } else if (panelType === 'private') {
+        domainToUse = global.domain;
+        apikeyToUse = global.apikey;
+        panelName = "Private Panel";
+    } else {
+        return m.reply("Jenis panel tidak valid. Gunakan 'public' atau 'private'.");
+    }
+
+    // Validasi dasar
+    if (username.length < 3) return m.reply("Username minimal 3 karakter.");
+    if (!email.includes('@') || !email.includes('.')) return m.reply("Format email tidak valid.");
+    if (password.length < 8) return m.reply("Password minimal 8 karakter.");
+
+    await m.reply(`Mencoba membuat user admin *${username}* di *${panelName}*...`);
+
+    try {
+        let f = await fetch(domainToUse + "/api/application/users", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + apikeyToUse,
+            },
+            body: JSON.stringify({
+                email: email,
+                username: username,
+                first_name: username, // Bisa disesuaikan
+                last_name: "Admin",    // Bisa disesuaikan
+                language: "en",        // Bisa disesuaikan (misal: "id" untuk Bahasa Indonesia)
+                password: password,
+                root_admin: true       // INI YANG PALING PENTING: Mengatur user sebagai admin
+            }),
+        });
+
+        let data = await f.json();
+
+        if (f.status === 201) { // 201 Created adalah status sukses untuk POST
+            let user = data.attributes;
+            let ctf = `*『 USER ADMIN BARU TERBUAT 』*\n` +
+                `\n` +
+                `⎙─➤ *Panel* : ${panelName}\n` +
+                `⎙─➤ *ID User* : ${user.id}\n` +
+                `⎙─➤ *👤Username* : ${user.username}\n` +
+                `⎙─➤ *📧Email* : ${user.email}\n` +
+                `⎙─➤ *🔐Password* : ${password}\n` +
+                `⎙─➤ *🌐Login* : ${domainToUse}\n` +
+                `⎙─➤ *⚡️Status* : Admin\n` +
+                `\n\n` +
+                `*NOTE:*\n` +
+                `[𝟭] 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗡𝗬𝗔 𝗠𝗘𝗡𝗴𝗜𝗥𝗜𝗠 𝗗𝗔𝗧𝗔 𝗔𝗞𝗨𝗡 𝟭𝗫\n` +
+                `[𝟮] 𝗝𝗔𝗡𝗴𝗔𝗡 𝗦𝗛𝗔𝗥𝗘 𝗔𝗞𝗨𝗡 𝗣𝗔𝗡𝗘𝗟 𝗔𝗡𝗗𝗔\n` +
+                `\n` +
+                `> BY IzharDevelop\n` +
+                `===============================`;
+
+            await naze.sendMessage(m.chat, { text: ctf }, { quoted: m });
+        } else {
+            console.error("Error creating admin user:", data);
+            let errorMessage = "Terjadi kesalahan saat membuat user admin.";
+            if (data.errors && data.errors.length > 0) {
+                errorMessage += ` Detail: ${data.errors[0].detail || data.errors[0].code}`;
+            }
+            await m.reply(errorMessage);
+        }
+
+    } catch (e) {
+        console.error("Fetch error creating admin user:", e);
+        await m.reply(`Terjadi kesalahan jaringan atau API saat membuat user admin: ${e.message}`);
+    }
+}
+break
 case "delsrvall": {
     // Hanya owner yang bisa menggunakan perintah ini
     if (!isCreator) return m.reply(mess.owner);
