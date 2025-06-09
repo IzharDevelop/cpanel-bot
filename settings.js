@@ -1,9 +1,15 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
+/*
+	* Create By Naze
+	* Follow https://github.com/nazedev
+	* Whatsapp : https://whatsapp.com/channel/0029VaWOkNm7DAWtkvkJBK43
+*/
+
 //~~~~~~~~~~~~< GLOBAL SETTINGS >~~~~~~~~~~~~\\
 
-global.owner = ['6285852536578'] //['628','628'] 2 owner atau lebih
+global.owner = ['6285852536578','6287872363060','6283869909316'] //['628','628'] 2 owner atau lebih
 global.packname = 'ZORO BOTZ'
 global.author = 'IZHARDEV'
 global.botname = 'ZORO BOTZ'
@@ -53,7 +59,7 @@ global.mess = {
 	wait: 'Loading...',
 	error: 'Error!',
 	done: 'Done',
-	ress: `Maaf kamu tidak bisa menggunakan fitur ini, Karena anda belum terdaftar sebagai Reseller panel.\n\n *Anda dapat menghubungi:* _https://wa.me/6285852536578_\n\n*Untuk menjadi anggota reseller dari kami.\n\n\n\n\n* BY @Izhardevelop\n* FROM INV_MultiMedia`
+    ress: '*Mohon maaf,* Anda tidak dapat mengakses fitur ini. Karena anda *belum terdaftar* di dalam Reseller Panel.\n\nAnda dapat mendaftarkan sebagai reseller dengan menghubungi kami di:\n\n* *IZHARDEV :*\n`https://wa.me/6285852536578`\n\n* *Owner :*\n`https://wa.me/6287872363060`\n\n\n\n\n\n\n`Copyright`\n`@𝙸𝚣𝚑𝚊𝚛𝙳𝚎𝚟𝚎𝚕𝚘𝚙`\n`𝙵𝚁𝙾𝙼 @𝙸𝙽𝚅_𝙼𝚞𝚕𝚝𝚒𝙼𝚎𝚍𝚒𝚊`',
 }
 
 global.APIs = {
@@ -69,12 +75,27 @@ global.APIKeys = {
 global.badWords = ['tolol','goblok','asu','pantek','kampret','ngentot','jancok','kontol','memek','lonte']
 global.chatLength = 1000
 
-//------------- panel v1 settings --------------\\
+//------------- private settings --------------\\
 global.domain = "https://kalszmarket.yubii.my.id";
 global.apikey = "ptla_7VomRtlEs2h8KDlnMzG2GIQp7M4H4tT9hp5pBGBGcjh";
 global.capikey = "ptlc_VV7eg9IkSeriw5TE5WoHf7YxbblqcZKrj44MkDa6V3V";
 global.eggsnya = "15"; // id eggs yang dipakai
 global.location = "2"; // id location
+global.thumb = 'https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg' // THUMBAIL DARI PANEL
+global.nodejs = "ghcr.io/parkervcp/yolks:nodejs_23";
+global.excludedServerIdsPrivate = ["23", "1"]; // Ganti dengan ID server owner
+
+
+
+//------------- public settings --------------\\
+global.domain2 = "https://reyzofficial.dzakkyofficial.my.id";
+global.apikey2 = "ptla_g1qNrwrD6KnI0IwROhAu8TutM9KY4HGTVc8qRhfbukP";
+global.capikey2 = "ptlc_pZg8NnMyaUNxh6XH3fGtF1IOSdAGnwW8YNcmfbDYaTd";
+global.eggsnya2 = "15"; // id eggs yang dipakai
+global.location2 = "1"; // id location
+global.thumb2 = 'https://raw.githubusercontent.com/IzharDevelop/database/main/LOGO%20INV.jpg' // THUMBAIL DARI PANEL global.nodejs2 = "ghcr.io/parkervcp/yolks:nodejs_23";
+global.excludedServerIdsPublic = ["2", "1"]; // Ganti dengan id panel owner 
+
 
 //~~~~~~~~~~~~~~~< PROCESS >~~~~~~~~~~~~~~~\\
 
